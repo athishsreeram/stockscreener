@@ -1,0 +1,209 @@
+&nbsp;
+{{err}}
+
+<div align="center">
+    <label for="symbol">Symbol:</label>
+    <input type="text" pInputText [(ngModel)]="symbol" required  (keyup)="getProfile()" />
+    &nbsp;
+    <!--<p-button label="Click" styleClass="ui-button-info" (click)='getProfile()'></p-button>-->
+
+</div>
+&nbsp;
+<div *ngIf="symbol == null; else resCheck1 " align="center">
+    Please enter a valid Stock code
+</div>
+
+<ng-template #resCheck1>
+    <div *ngIf="profiles == null; else resCheck2 " align="center">
+        Please enter a valid Stock code
+    </div>
+</ng-template>
+
+<ng-template #resCheck2>
+
+    <div *ngIf=" ((profiles | json) == ({} | json))" align="center">
+        Please enter a valid Stock code
+    </div>
+    <div *ngIf="((profiles | json) != ({} | json))" align="center">
+
+        <h1>
+            {{profiles.profile.companyName}} - {{profiles.symbol}}
+        </h1>
+
+        <p-tabView>
+
+            <p-tabPanel header="Chart">
+                <p-chart type="line" [data]="data" ></p-chart>
+asfd
+            </p-tabPanel>
+            <p-tabPanel header="Quote">
+                <p-dataView [value]="quotes">
+                    <ng-template let-quote pTemplate="listItem">
+                                    <table class="table table-bordered table-striped">
+                                        <tbody id="myTable1">
+                                        <tr>
+                                            <td>Symbol</td>
+                                            <td>{{quote.symbol}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>{{quote.name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>changesPercentage</td>
+                                            <td>{{quote.changesPercentage}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>change</td>
+                                            <td>{{quote.change}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>dayLow</td>
+                                            <td>{{quote.dayLow}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>dayHigh</td>
+                                            <td>{{quote.dayHigh}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>yearHigh</td>
+                                            <td>{{quote.yearHigh}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>yearHigh</td>
+                                            <td>{{quote.yearLow}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>yearHigh</td>
+                                            <td>{{quote.marketCap}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>yearHigh</td>
+                                            <td>{{quote.priceAvg50}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>priceAvg200</td>
+                                            <td>{{quote.priceAvg200}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>volume</td>
+                                            <td>{{quote.volume}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>avgVolume</td>
+                                            <td>{{quote.avgVolume}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>open</td>
+                                            <td>{{quote.open}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>previousClose</td>
+                                            <td>{{quote.previousClose}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>eps</td>
+                                            <td>{{quote.eps}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>pe</td>
+                                            <td>{{quote.pe}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>sharesOutstanding</td>
+                                            <td>{{quote.sharesOutstanding}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>timestamp</td>
+                                            <td>{{quote.timestamp}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                    </ng-template>
+                   
+                </p-dataView>
+
+            </p-tabPanel>
+            
+            <p-tabPanel header="Company Info">
+
+                <div>
+                    <table class="table table-bordered table-striped">
+                        <tbody id="myTable">
+                        <tr>
+                            <td>Price</td>
+                            <td>{{profiles.profile.price}}</td>
+                        </tr>
+                        <tr>
+                            <td>Beta</td>
+                            <td>{{profiles.profile.beta}}</td>
+                        </tr>
+                        <tr>
+                            <td>Volume Avg</td>
+                            <td>{{profiles.profile.volAvg}}</td>
+                        </tr>
+                        <tr>
+                            <td>MktCap</td>
+                            <td>{{profiles.profile.mktCap}}</td>
+                        </tr>
+                        <tr>
+                            <td>LastDiv</td>
+                            <td>{{profiles.profile.lastDiv}}</td>
+                        </tr>
+                        <tr>
+                            <td>Range</td>
+                            <td>{{profiles.profile.range}}</td>
+                        </tr>
+                        <tr>
+                            <td>Changes</td>
+                            <td>{{profiles.profile.changes}}</td>
+                        </tr>
+                        <tr>
+                            <td>ChangesPercentage</td>
+                            <td>{{profiles.profile.changesPercentage}}</td>
+                        </tr>
+                        <tr>
+                            <td>CompanyName</td>
+                            <td>{{profiles.profile.companyName}}</td>
+                        </tr>
+                        <tr>
+                            <td>Exchange</td>
+                            <td>{{profiles.profile.exchange}}</td>
+                        </tr>
+                        <tr>
+                            <td>Industry</td>
+                            <td>{{profiles.profile.industry}}</td>
+                        </tr>
+                        <tr>
+                            <td>Website</td>
+                            <td>{{profiles.profile.website}}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{{profiles.profile.description}}</td>
+                        </tr>
+                        <tr>
+                            <td>CEO</td>
+                            <td>{{profiles.profile.ceo}}</td>
+                        </tr>
+                        <tr>
+                            <td>sector</td>
+                            <td>{{profiles.profile.sector}}</td>
+                        </tr>
+                        <tr>
+                            <td>Logo</td>
+                            <td><img src="{{profiles.profile.image}}" /></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+            </p-tabPanel>
+
+            
+        </p-tabView>
+    </div>
+</ng-template>
