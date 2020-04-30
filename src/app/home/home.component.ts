@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
 
     this.cols = [
       { field: 'symbol', header: 'Symbol' },
+      { field: 'name', header: 'Name' },
       { field: 'price', header: 'Price' },
       { field: 'exchange', header: 'Exchange' }
    ];
