@@ -24,8 +24,6 @@ export class ProfileComponent implements OnInit {
 
   }
 
-
-
   getProfile() {
 
     if (this.symbol != "") {

@@ -7,6 +7,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { Quote } from './Quote';
 import { History } from './History';
 import { DatePipe } from '@angular/common';
+import { StkLst } from './StkLst';
 
 
 @Injectable({
@@ -45,13 +46,21 @@ export class ProfileService {
       let datee;
       datee = new Date();
       let latest_date =this.datepipe.transform(datee, 'yyyy-MM-dd');
-      console.log(latest_date);
       
      return this.http.get<History>(this._historyurl1+symbol+this._historyurl2+latest_date)
       .pipe(retry(3),
         catchError(this.handleError)
       );
 
+  }
+  
+  private _stkLst: string = "https://financialmodelingprep.com/api/v3/company/stock/list";
+
+  getStkLst(): Observable<StkLst> {
+    return this.http.get<StkLst>(this._stkLst)
+      .pipe(retry(1),
+        catchError(this.handleError)
+      );
   }
 
   handleError(error) {

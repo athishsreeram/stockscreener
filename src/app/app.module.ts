@@ -13,13 +13,15 @@ import {ButtonModule} from 'primeng/button';
 import {DataViewModule} from 'primeng/dataview';
 import {ChartModule} from 'primeng/chart';
 import { DatePipe } from '@angular/common';
+import { HomeComponent } from './home/home.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent
+    ProfileComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
