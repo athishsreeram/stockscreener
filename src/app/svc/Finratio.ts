@@ -48,6 +48,7 @@ export interface DebtRatios {
 }
 
 export interface InvestmentValuationRatios {
+    date:                            Date;
     priceBookValueRatio:            string;
     priceToBookRatio:               string;
     priceToSalesRatio:              string;

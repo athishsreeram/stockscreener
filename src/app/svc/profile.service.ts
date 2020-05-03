@@ -11,6 +11,7 @@ import { StkLst } from './StkLst';
 import { Financial, Income } from './Income';
 import { Finratio } from './Finratio';
 import { Fsg } from './Fsg';
+import { Cmpmetric } from './Cmpmetric';
 
 
 @Injectable({
@@ -81,6 +82,25 @@ export class ProfileService {
 
   getFsg(symbol): Observable<Fsg> {
     return this.http.get<Fsg>(this._fsgLst+symbol)
+      .pipe(retry(1),
+        catchError(this.handleError)
+      );
+  }
+
+  private _cmpMetricLst: string = "https://financialmodelingprep.com/api/v3/company-key-metrics/";
+
+  getCmpmetric(symbol): Observable<Cmpmetric> {
+    return this.http.get<Cmpmetric>(this._cmpMetricLst+symbol)
+      .pipe(retry(1),
+        catchError(this.handleError)
+      );
+  }
+
+  private _frurl: string = "https://financialmodelingprep.com/api/v3/financial-ratios/";
+  //private _frurl: string = "assets/quote.json";
+
+  getFinratio(symbol): Observable<Finratio> {
+    return this.http.get<Finratio>(this._frurl+symbol)
       .pipe(retry(1),
         catchError(this.handleError)
       );

@@ -251,6 +251,58 @@
              </div>   
     
             </p-tabPanel>
+
+            <p-tabPanel header="Company key metrics" >
+            
+                <div style="overflow-x:auto;">
+                    <p-table id="ftbl" [columns]="colsCmpmetric" [value]="metricsLst" >
+                        <ng-template pTemplate="header" let-columns>
+                            <tr> 
+                                <td *ngFor="let col of columns">
+                                    {{col.header}}
+                                </td>
+                            </tr>    
+                        </ng-template>
+            
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <tr [pSelectableRow]="rowData">
+                                <td *ngFor="let col of columns">
+                                        {{rowData[col.field]}}
+                                </td>
+                            </tr>
+                        </ng-template>
+            
+                    </p-table> 
+                </div>
+        
+                </p-tabPanel>
+
+                <p-tabPanel header="Key Ratio" >
+            
+                    <h2>InvestmentValuationRatios</h2>
+
+                    <div style="overflow-x:auto;">
+                        <p-table id="ftbl" [columns]="colInvestmentValuationRatios" [value]="ratiosLst" >
+                            <ng-template pTemplate="header" let-columns>
+                                <tr> 
+                                    <td *ngFor="let col of columns">
+                                        {{col.header}}
+                                    </td>
+                                </tr>    
+                            </ng-template>
+                
+                            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                <tr [pSelectableRow]="rowData">
+                                    <td *ngFor="let col of columns">
+                                        {{rowData[col.field]}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                
+                        </p-table> 
+                    </div>
+            
+                </p-tabPanel>
             
             
         </p-tabView>
