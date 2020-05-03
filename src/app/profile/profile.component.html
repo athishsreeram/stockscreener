@@ -202,7 +202,55 @@
 
             </p-tabPanel>
 
+            <p-tabPanel header="Financials Info" >
+
+                <p-table [columns]="colsIncome" [value]="financialLst" [paginator]="true"  [resizableColumns]="true" [rows]="50"  >
+                    <ng-template pTemplate="header" let-columns>
+                        <tr> 
+                            <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>
+                        </tr>    
+                    </ng-template>
+        
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr [pSelectableRow]="rowData">
+                            <td *ngFor="let col of columns">
+                                    {{rowData[col.field]}}
+                            </td>
+                        </tr>
+                    </ng-template>
+        
+                </p-table> 
+    
+            </p-tabPanel>
+
+            <p-tabPanel header="Financials Growth" >
+
+                <p-table [columns]="colsFsgRatio" [value]="growthLst" [paginator]="true" [resizableColumns]="true" [rows]="50"  >
+                    <ng-template pTemplate="header" let-columns>
+                        <tr> 
+                            <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>
+                        </tr>    
+                    </ng-template>
+        
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr [pSelectableRow]="rowData">
+                            <td *ngFor="let col of columns">
+                                    {{rowData[col.field]}}
+                            </td>
+                        </tr>
+                    </ng-template>
+        
+                </p-table>
+    
+            </p-tabPanel>
+            
             
         </p-tabView>
+
+       
     </div>
 </ng-template>

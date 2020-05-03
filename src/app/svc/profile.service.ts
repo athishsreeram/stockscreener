@@ -8,6 +8,9 @@ import { Quote } from './Quote';
 import { History } from './History';
 import { DatePipe } from '@angular/common';
 import { StkLst } from './StkLst';
+import { Financial, Income } from './Income';
+import { Finratio } from './Finratio';
+import { Fsg } from './Fsg';
 
 
 @Injectable({
@@ -58,6 +61,26 @@ export class ProfileService {
 
   getStkLst(): Observable<StkLst> {
     return this.http.get<StkLst>(this._stkLst)
+      .pipe(retry(1),
+        catchError(this.handleError)
+      );
+  }
+
+
+  private _incomeLst: string = "https://financialmodelingprep.com/api/v3/financials/income-statement/";
+
+  getFinancials(symbol): Observable<Income> {
+    return this.http.get<Income>(this._incomeLst+symbol)
+      .pipe(retry(1),
+        catchError(this.handleError)
+      );
+  }
+
+
+  private _fsgLst: string = "https://financialmodelingprep.com/api/v3/financial-statement-growth/";
+
+  getFsg(symbol): Observable<Fsg> {
+    return this.http.get<Fsg>(this._fsgLst+symbol)
       .pipe(retry(1),
         catchError(this.handleError)
       );

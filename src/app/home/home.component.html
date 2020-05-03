@@ -18,7 +18,13 @@
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr [pSelectableRow]="rowData">
                     <td *ngFor="let col of columns">
-                        {{rowData[col.field]}}
+                        
+                        <p *ngIf="col.field == 'symbol'; else otherFields " align="center">
+                            <p-button  (click)='getProfile(rowData[col.field])' label="{{rowData[col.field]}}"></p-button> 
+                        </p>
+                        <ng-template #otherFields>
+                            <p>{{rowData[col.field]}} </p>
+                        </ng-template> 
                     </td>
                 </tr>
             </ng-template>

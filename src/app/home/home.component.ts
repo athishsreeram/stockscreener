@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SymbolsList } from '../svc/StkLst';
 import { ProfileService } from '../svc/profile.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +14,7 @@ export class HomeComponent implements OnInit {
   err: String;
   cols: any[];
 
-  constructor(private profileService: ProfileService) { }
-
+  constructor(private profileService: ProfileService,private router: Router) {}
   ngOnInit() {
     this.getStk();
   }
@@ -31,6 +31,11 @@ export class HomeComponent implements OnInit {
       this.profileService.getStkLst().
         subscribe(data => this.stkLst = data.symbolsList,
           error => this.err = error);
+  }
+
+  getProfile(sym: string) {
+    this.router.navigate(['profile', {symbol: sym}]);
+    window.scrollTo(0, 0);
   }
 
 }
