@@ -6,6 +6,7 @@ import { History } from '../svc/History';
 import { ActivatedRoute } from '@angular/router';
 import { Financial } from '../svc/Income';
 import { Fsg, Growth } from '../svc/Fsg';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-profile',
@@ -87,7 +88,7 @@ export class ProfileComponent implements OnInit {
 
       this.colsIncome = [
         {
-          field: "date", header: "date"
+          field: "date", header: "Date"
         },
         {
           field: "Revenue", header: "Revenue"
@@ -185,7 +186,7 @@ export class ProfileComponent implements OnInit {
       ];
 
       this.colsFsgRatio = [
-        { field: "date", header: "date" },
+        { field: "date", header: "Date" },
         { field: "Gross Profit Growth", header: "Gross Profit Growth" },
         { field: "EBIT Growth", header: "EBIT Growth" },
         { field: "Operating Income Growth", header: "Operating Income Growth" },
@@ -224,7 +225,9 @@ export class ProfileComponent implements OnInit {
       this.profileService.getFinancials(this.symbol).
         subscribe(data => {
           this.financialLst = data.financials;
-          console.log(data);
+
+          this.transposeTable();
+
         },
           error => this.err = error);
 
@@ -237,5 +240,28 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  transposeTable(){
+    $(function () {
+      $("[role=grid]").each(function() {
+        var $this = $(this);
+        var newrows = [];
+        $this.find("tr").each(function(){
+            var i = 0;
+            $(this).find("td").each(function(){
+                i++;
+                if(newrows[i] === undefined) { newrows[i] = $("<tr></tr>"); }
+                newrows[i].append($(this));
+            });
+        });
+        $this.find("tr").remove();
+        $.each(newrows, function(){
+            $this.append(this);
+        });
+    });
+      
+    });
+  }
+
 
 }
+

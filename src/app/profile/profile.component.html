@@ -203,13 +203,14 @@
             </p-tabPanel>
 
             <p-tabPanel header="Financials Info" >
-
-                <p-table [columns]="colsIncome" [value]="financialLst" [paginator]="true"  [resizableColumns]="true" [rows]="50"  >
+            
+            <div style="overflow-x:auto;">
+                <p-table id="ftbl" [columns]="colsIncome" [value]="financialLst"     >
                     <ng-template pTemplate="header" let-columns>
                         <tr> 
-                            <th *ngFor="let col of columns">
+                            <td *ngFor="let col of columns">
                                 {{col.header}}
-                            </th>
+                            </td>
                         </tr>    
                     </ng-template>
         
@@ -222,17 +223,19 @@
                     </ng-template>
         
                 </p-table> 
+            </div>
     
             </p-tabPanel>
 
             <p-tabPanel header="Financials Growth" >
 
-                <p-table [columns]="colsFsgRatio" [value]="growthLst" [paginator]="true" [resizableColumns]="true" [rows]="50"  >
+            <div style="overflow-x:auto;">
+                <p-table [columns]="colsFsgRatio" [value]="growthLst"     >
                     <ng-template pTemplate="header" let-columns>
                         <tr> 
-                            <th *ngFor="let col of columns">
+                            <td *ngFor="let col of columns">
                                 {{col.header}}
-                            </th>
+                            </td>
                         </tr>    
                     </ng-template>
         
@@ -245,6 +248,7 @@
                     </ng-template>
         
                 </p-table>
+             </div>   
     
             </p-tabPanel>
             
