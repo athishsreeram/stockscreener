@@ -22,6 +22,8 @@
     "@angular/router": "~9.1.3",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
+    "datatables.net": "^1.10.20",
+    "datatables.net-dt": "^1.10.20",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.0",
     "primeicons": "^2.0.0",

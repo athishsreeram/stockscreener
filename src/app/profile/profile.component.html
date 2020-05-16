@@ -128,7 +128,7 @@
             <p-tabPanel header="Company Info">
 
                 <div>
-                    <table id="test" class="table table-bordered table-striped">
+                    <table id="cmpInfoTbl" class="table table-bordered table-striped">
                         <tbody id="myTable">
                         <tr>
                             <td>Price</td>
@@ -204,14 +204,13 @@
 
             <p-tabPanel header="Financials Info" >
             
-            <div style="width: 100%;overflow-x: auto;white-space: nowrap;">
-                <div style="width: 6000px;">
-                <p-table  id="ftbl" [columns]="colsIncome" [value]="financialLst"   >
+           
+                <p-table  id="fitbl" [columns]="colsIncome" [value]="financialLst"   >
                     <ng-template pTemplate="header" let-columns>
                         <tr> 
-                            <td *ngFor="let col of columns">
+                            <th *ngFor="let col of columns">
                                 {{col.header}}
-                            </td>
+                            </th>
                         </tr>    
                     </ng-template>
         
@@ -224,21 +223,18 @@
                     </ng-template>
         
                 </p-table> 
-                </div>
-            </div>
+               
     
             </p-tabPanel>
 
             <p-tabPanel header="Financials Growth" >
 
-            <div style="overflow-x:auto; display: inline-block;">
-                <div style="width: 6000px;">
-                <p-table [columns]="colsFsgRatio" [value]="growthLst"     >
+                <p-table id="fgtbl" [columns]="colsFsgRatio" [value]="growthLst"     >
                     <ng-template pTemplate="header" let-columns>
                         <tr> 
-                            <td *ngFor="let col of columns">
+                            <th *ngFor="let col of columns">
                                 {{col.header}}
-                            </td>
+                            </th>
                         </tr>    
                     </ng-template>
         
@@ -251,21 +247,17 @@
                     </ng-template>
         
                 </p-table>
-                </div>
-             </div>   
-    
+              
             </p-tabPanel>
 
             <p-tabPanel header="Company key metrics" >
             
-                <div style="overflow-x:auto; display: inline-block;">
-                    <div style="width: 10000px;">
-                    <p-table id="ftbl" [columns]="colsCmpmetric" [value]="metricsLst" >
+                    <p-table id="ckmtbl" [columns]="colsCmpmetric" [value]="metricsLst" >
                         <ng-template pTemplate="header" let-columns>
                             <tr> 
-                                <td *ngFor="let col of columns">
+                                <th *ngFor="let col of columns">
                                     {{col.header}}
-                                </td>
+                                </th>
                             </tr>    
                         </ng-template>
             
@@ -278,23 +270,19 @@
                         </ng-template>
             
                     </p-table> 
-                    </div>
-                </div>
-        
+                 
                 </p-tabPanel>
 
                 <p-tabPanel header="Key Ratio" >
             
                     <h2>InvestmentValuationRatios</h2>
 
-                    <div style="overflow-x:auto; display: inline-block;" >
-                        <div style="width: 4000px;">
-                        <p-table id="ftbl" [columns]="colInvestmentValuationRatios" [value]="ratiosLst" >
+                        <p-table id="krtbl" [columns]="colInvestmentValuationRatios" [value]="ratiosLst" >
                             <ng-template pTemplate="header" let-columns>
                                 <tr> 
-                                    <td *ngFor="let col of columns">
+                                    <th *ngFor="let col of columns">
                                         {{col.header}}
-                                    </td>
+                                    </th>
                                 </tr>    
                             </ng-template>
                 
@@ -307,9 +295,7 @@
                             </ng-template>
                 
                         </p-table> 
-                        </div>
-                    </div>
-            
+                    
                 </p-tabPanel>
             
             

@@ -8,6 +8,8 @@ import { Financial } from '../svc/Income';
 import { Fsg, Growth } from '../svc/Fsg';
 import * as $ from 'jquery';
 import { InvestmentValuationRatios } from '../svc/Finratio';
+import "datatables.net";
+import "datatables.net-dt"; 
 
 @Component({
   selector: 'app-profile',
@@ -44,6 +46,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+ 
   getProfile() {
 
     if (this.symbol != "") {
@@ -91,7 +94,7 @@ export class ProfileComponent implements OnInit {
           error => this.err = error);
 
       this.colsIncome = [
-        { field: "date", header: "date" },
+        { field: "date", header: "Date" },
         { field: "Revenue", header: "Revenue" },
         { field: "Revenue Growth", header: "Revenue Growth" },
         { field: "Cost of Revenue", header: "Cost of Revenue" },
@@ -163,7 +166,7 @@ export class ProfileComponent implements OnInit {
       ];
 
       this.colsCmpmetric = [
-        {	field:	"date" 	,	header:	"date" 	}	,
+        {	field:	"date" 	,	header: "Date" 	}	,
         {	field:	"Revenue per Share" 	,	header:	"Revenue per Share" 	}	,
         {	field:	"Net Income per Share" 	,	header:	"Net Income per Share" 	}	,
         {	field:	"Operating Cash Flow per Share" 	,	header:	"Operating Cash Flow per Share" 	}	,
@@ -224,7 +227,7 @@ export class ProfileComponent implements OnInit {
       ];
 
       this.colInvestmentValuationRatios = [
-        {	field:	"date" 	,	header:	"date" 	}	,
+        {	field:	"date" 	,	header: "Date" 	}	,
         {	field:	"priceBookValueRatio" 	,	header:	"priceBookValueRatio" 	}	,
         {	field:	"priceToBookRatio" 	,	header:	"priceToBookRatio" 	}	,
         {	field:	"priceToSalesRatio" 	,	header:	"priceToSalesRatio" 	}	,
@@ -235,7 +238,7 @@ export class ProfileComponent implements OnInit {
         {	field:	"priceCashFlowRatio" 	,	header:	"priceCashFlowRatio" 	}	,
         {	field:	"priceEarningsToGrowthRatio" 	,	header:	"priceEarningsToGrowthRatio" 	}	,
         {	field:	"priceSalesRatio" 	,	header:	"priceSalesRatio" 	}	,
-        {	field:	"dividendYield" 	,	header:	"dividendYield" 	}	,
+        {	field:	"dividendYield" 	,	header: "DividendYield" 	}	,
         {	field:	"enterpriseValueMultiple" 	,	header:	"enterpriseValueMultiple" 	}	,
         {	field:	"priceFairValue" 	,	header:	"priceFairValue" 	}		
       ];
@@ -277,23 +280,47 @@ export class ProfileComponent implements OnInit {
 
   transposeTable() {
     $(function () {
-      $("[role=grid]").each(function () {
-        var $this = $(this);
-        var newrows = [];
-        $this.find("tr").each(function () {
-          var i = 0;
-          $(this).find("td").each(function () {
-            i++;
-            if (newrows[i] === undefined) { newrows[i] = $("<tr></tr>"); }
-            newrows[i].append($(this));
-          });
-        });
-        $this.find("tr").remove();
-        $.each(newrows, function () {
-          $this.append(this);
-        });
-      });
 
+
+      $("#fitbl").find("[role=grid]").attr("id","fiTable");
+       $("#ckmtbl").find("[role=grid]").attr("id","ckmTable");
+       $("#krtbl").find("[role=grid]").attr("id","krTable");
+
+       $('#fiTable').DataTable({
+         paging: false,
+         autoWidth: true
+        });
+
+        $('#fiTable').wrap("<div style='overflow-x:auto;'>");
+        $('#fiTable').css("width","6000px");
+       
+        $("#fgtbl").find("[role=grid]").attr("id","fgTable");
+       
+       $('#fgTable').DataTable({
+        paging: false,
+        autoWidth: true
+       });
+      
+       $('#fgTable').wrap("<div style='overflow-x:auto;'>");
+       $('#fgTable').css("width","6000px");
+      
+       $('#ckmTable').DataTable({
+        paging: false,
+        autoWidth: true
+       });
+
+       $('#ckmTable').wrap("<div style='overflow-x:auto;'>");
+        $('#ckmTable').css("width","12000px");
+       
+       $('#krTable').DataTable({
+        paging: false,
+        autoWidth: true
+       });
+
+       $('#krTable').wrap("<div style='overflow-x:auto;'>");
+        $('#krTable').css("width","6000px");
+       
+      
     });
   }
 
