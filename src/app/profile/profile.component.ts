@@ -7,9 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Financial } from '../svc/Income';
 import { Fsg, Growth } from '../svc/Fsg';
 import * as $ from 'jquery';
-import { InvestmentValuationRatios } from '../svc/Finratio';
+import { InvestmentValuationRatios, CashFlowIndicatorRatios, DebtRatios, ProfitabilityIndicatorRatios, OperatingPerformanceRatios, LiquidityMeasurementRatios } from '../svc/Finratio';
 import "datatables.net";
-import "datatables.net-dt"; 
+import "datatables.net-dt";
 
 @Component({
   selector: 'app-profile',
@@ -29,11 +29,23 @@ export class ProfileComponent implements OnInit {
   colsFsgRatio: any[];
   colsCmpmetric: any[];
   colInvestmentValuationRatios: any[];
+  colProfitabilityIndicatorRatios: any[];
+  colOperatingPerformanceRatios: any[];
+  colliquidityMeasurementRatios: any[];
+  coldebtRatiosLst: any[];
+  colcashFlowIndicatorRatiosLst: any[];
+
 
   financialLst: Financial[];
   growthLst: Growth[];
   metricsLst: { [key: string]: string }[];
-  ratiosLst: InvestmentValuationRatios[];
+  invRatiosLst: InvestmentValuationRatios[];
+  profRatiosLst: ProfitabilityIndicatorRatios[];
+  operatingPerformanceRatiosLst: OperatingPerformanceRatios[];
+  liquidityMeasurementRatiosLst: LiquidityMeasurementRatios[];
+  debtRatiosLst: DebtRatios[];
+  cashFlowIndicatorRatiosLst: CashFlowIndicatorRatios[];
+
 
   constructor(private profileService: ProfileService, private route: ActivatedRoute) { }
 
@@ -46,7 +58,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
- 
+
   getProfile() {
 
     if (this.symbol != "") {
@@ -166,82 +178,149 @@ export class ProfileComponent implements OnInit {
       ];
 
       this.colsCmpmetric = [
-        {	field:	"date" 	,	header: "Date" 	}	,
-        {	field:	"Revenue per Share" 	,	header:	"Revenue per Share" 	}	,
-        {	field:	"Net Income per Share" 	,	header:	"Net Income per Share" 	}	,
-        {	field:	"Operating Cash Flow per Share" 	,	header:	"Operating Cash Flow per Share" 	}	,
-        {	field:	"Free Cash Flow per Share" 	,	header:	"Free Cash Flow per Share" 	}	,
-        {	field:	"Cash per Share" 	,	header:	"Cash per Share" 	}	,
-        {	field:	"Book Value per Share" 	,	header:	"Book Value per Share" 	}	,
-        {	field:	"Tangible Book Value per Share" 	,	header:	"Tangible Book Value per Share" 	}	,
-        {	field:	"Shareholders Equity per Share" 	,	header:	"Shareholders Equity per Share" 	}	,
-        {	field:	"Interest Debt per Share" 	,	header:	"Interest Debt per Share" 	}	,
-        {	field:	"Market Cap" 	,	header:	"Market Cap" 	}	,
-        {	field:	"Enterprise Value" 	,	header:	"Enterprise Value" 	}	,
-        {	field:	"PE ratio" 	,	header:	"PE ratio" 	}	,
-        {	field:	"Price to Sales Ratio" 	,	header:	"Price to Sales Ratio" 	}	,
-        {	field:	"POCF ratio" 	,	header:	"POCF ratio" 	}	,
-        {	field:	"PFCF ratio" 	,	header:	"PFCF ratio" 	}	,
-        {	field:	"PB ratio" 	,	header:	"PB ratio" 	}	,
-        {	field:	"PTB ratio" 	,	header:	"PTB ratio" 	}	,
-        {	field:	"EV to Sales" 	,	header:	"EV to Sales" 	}	,
-        {	field:	"Enterprise Value over EBITDA" 	,	header:	"Enterprise Value over EBITDA" 	}	,
-        {	field:	"EV to Operating cash flow" 	,	header:	"EV to Operating cash flow" 	}	,
-        {	field:	"EV to Free cash flow" 	,	header:	"EV to Free cash flow" 	}	,
-        {	field:	"Earnings Yield" 	,	header:	"Earnings Yield" 	}	,
-        {	field:	"Free Cash Flow Yield" 	,	header:	"Free Cash Flow Yield" 	}	,
-        {	field:	"Debt to Equity" 	,	header:	"Debt to Equity" 	}	,
-        {	field:	"Debt to Assets" 	,	header:	"Debt to Assets" 	}	,
-        {	field:	"Net Debt to EBITDA" 	,	header:	"Net Debt to EBITDA" 	}	,
-        {	field:	"Current ratio" 	,	header:	"Current ratio" 	}	,
-        {	field:	"Interest Coverage" 	,	header:	"Interest Coverage" 	}	,
-        {	field:	"Income Quality" 	,	header:	"Income Quality" 	}	,
-        {	field:	"Dividend Yield" 	,	header:	"Dividend Yield" 	}	,
-        {	field:	"Payout Ratio" 	,	header:	"Payout Ratio" 	}	,
-        {	field:	"SG&A to Revenue" 	,	header:	"SG&A to Revenue" 	}	,
-        {	field:	"R&D to Revenue" 	,	header:	"R&D to Revenue" 	}	,
-        {	field:	"Intangibles to Total Assets" 	,	header:	"Intangibles to Total Assets" 	}	,
-        {	field:	"Capex to Operating Cash Flow" 	,	header:	"Capex to Operating Cash Flow" 	}	,
-        {	field:	"Capex to Revenue" 	,	header:	"Capex to Revenue" 	}	,
-        {	field:	"Capex to Depreciation" 	,	header:	"Capex to Depreciation" 	}	,
-        {	field:	"Stock-based compensation to Revenue" 	,	header:	"Stock-based compensation to Revenue" 	}	,
-        {	field:	"Graham Number" 	,	header:	"Graham Number" 	}	,
-        {	field:	"ROIC" 	,	header:	"ROIC" 	}	,
-        {	field:	"Return on Tangible Assets" 	,	header:	"Return on Tangible Assets" 	}	,
-        {	field:	"Graham Net-Net" 	,	header:	"Graham Net-Net" 	}	,
-        {	field:	"Working Capital" 	,	header:	"Working Capital" 	}	,
-        {	field:	"Tangible Asset Value" 	,	header:	"Tangible Asset Value" 	}	,
-        {	field:	"Net Current Asset Value" 	,	header:	"Net Current Asset Value" 	}	,
-        {	field:	"Invested Capital" 	,	header:	"Invested Capital" 	}	,
-        {	field:	"Average Receivables" 	,	header:	"Average Receivables" 	}	,
-        {	field:	"Average Payables" 	,	header:	"Average Payables" 	}	,
-        {	field:	"Average Inventory" 	,	header:	"Average Inventory" 	}	,
-        {	field:	"Days Sales Outstanding" 	,	header:	"Days Sales Outstanding" 	}	,
-        {	field:	"Days Payables Outstanding" 	,	header:	"Days Payables Outstanding" 	}	,
-        {	field:	"Days of Inventory on Hand" 	,	header:	"Days of Inventory on Hand" 	}	,
-        {	field:	"Receivables Turnover" 	,	header:	"Receivables Turnover" 	}	,
-        {	field:	"Payables Turnover" 	,	header:	"Payables Turnover" 	}	,
-        {	field:	"Inventory Turnover" 	,	header:	"Inventory Turnover" 	}	,
-        {	field:	"ROE" 	,	header:	"ROE" 	}	,
-        {	field:	"Capex per Share" 	,	header:	"Capex per Share" 	}
+        { field: "date", header: "Date" },
+        { field: "Revenue per Share", header: "Revenue per Share" },
+        { field: "Net Income per Share", header: "Net Income per Share" },
+        { field: "Operating Cash Flow per Share", header: "Operating Cash Flow per Share" },
+        { field: "Free Cash Flow per Share", header: "Free Cash Flow per Share" },
+        { field: "Cash per Share", header: "Cash per Share" },
+        { field: "Book Value per Share", header: "Book Value per Share" },
+        { field: "Tangible Book Value per Share", header: "Tangible Book Value per Share" },
+        { field: "Shareholders Equity per Share", header: "Shareholders Equity per Share" },
+        { field: "Interest Debt per Share", header: "Interest Debt per Share" },
+        { field: "Market Cap", header: "Market Cap" },
+        { field: "Enterprise Value", header: "Enterprise Value" },
+        { field: "PE ratio", header: "PE ratio" },
+        { field: "Price to Sales Ratio", header: "Price to Sales Ratio" },
+        { field: "POCF ratio", header: "POCF ratio" },
+        { field: "PFCF ratio", header: "PFCF ratio" },
+        { field: "PB ratio", header: "PB ratio" },
+        { field: "PTB ratio", header: "PTB ratio" },
+        { field: "EV to Sales", header: "EV to Sales" },
+        { field: "Enterprise Value over EBITDA", header: "Enterprise Value over EBITDA" },
+        { field: "EV to Operating cash flow", header: "EV to Operating cash flow" },
+        { field: "EV to Free cash flow", header: "EV to Free cash flow" },
+        { field: "Earnings Yield", header: "Earnings Yield" },
+        { field: "Free Cash Flow Yield", header: "Free Cash Flow Yield" },
+        { field: "Debt to Equity", header: "Debt to Equity" },
+        { field: "Debt to Assets", header: "Debt to Assets" },
+        { field: "Net Debt to EBITDA", header: "Net Debt to EBITDA" },
+        { field: "Current ratio", header: "Current ratio" },
+        { field: "Interest Coverage", header: "Interest Coverage" },
+        { field: "Income Quality", header: "Income Quality" },
+        { field: "Dividend Yield", header: "Dividend Yield" },
+        { field: "Payout Ratio", header: "Payout Ratio" },
+        { field: "SG&A to Revenue", header: "SG&A to Revenue" },
+        { field: "R&D to Revenue", header: "R&D to Revenue" },
+        { field: "Intangibles to Total Assets", header: "Intangibles to Total Assets" },
+        { field: "Capex to Operating Cash Flow", header: "Capex to Operating Cash Flow" },
+        { field: "Capex to Revenue", header: "Capex to Revenue" },
+        { field: "Capex to Depreciation", header: "Capex to Depreciation" },
+        { field: "Stock-based compensation to Revenue", header: "Stock-based compensation to Revenue" },
+        { field: "Graham Number", header: "Graham Number" },
+        { field: "ROIC", header: "ROIC" },
+        { field: "Return on Tangible Assets", header: "Return on Tangible Assets" },
+        { field: "Graham Net-Net", header: "Graham Net-Net" },
+        { field: "Working Capital", header: "Working Capital" },
+        { field: "Tangible Asset Value", header: "Tangible Asset Value" },
+        { field: "Net Current Asset Value", header: "Net Current Asset Value" },
+        { field: "Invested Capital", header: "Invested Capital" },
+        { field: "Average Receivables", header: "Average Receivables" },
+        { field: "Average Payables", header: "Average Payables" },
+        { field: "Average Inventory", header: "Average Inventory" },
+        { field: "Days Sales Outstanding", header: "Days Sales Outstanding" },
+        { field: "Days Payables Outstanding", header: "Days Payables Outstanding" },
+        { field: "Days of Inventory on Hand", header: "Days of Inventory on Hand" },
+        { field: "Receivables Turnover", header: "Receivables Turnover" },
+        { field: "Payables Turnover", header: "Payables Turnover" },
+        { field: "Inventory Turnover", header: "Inventory Turnover" },
+        { field: "ROE", header: "ROE" },
+        { field: "Capex per Share", header: "Capex per Share" }
       ];
 
       this.colInvestmentValuationRatios = [
-        {	field:	"date" 	,	header: "Date" 	}	,
-        {	field:	"priceBookValueRatio" 	,	header:	"priceBookValueRatio" 	}	,
-        {	field:	"priceToBookRatio" 	,	header:	"priceToBookRatio" 	}	,
-        {	field:	"priceToSalesRatio" 	,	header:	"priceToSalesRatio" 	}	,
-        {	field:	"priceEarningsRatio" 	,	header:	"priceEarningsRatio" 	}	,
-        {	field:	"receivablesTurnover" 	,	header:	"receivablesTurnover" 	}	,
-        {	field:	"priceToFreeCashFlowsRatio" 	,	header:	"priceToFreeCashFlowsRatio" 	}	,
-        {	field:	"priceToOperatingCashFlowsRatio" 	,	header:	"priceToOperatingCashFlowsRatio" 	}	,
-        {	field:	"priceCashFlowRatio" 	,	header:	"priceCashFlowRatio" 	}	,
-        {	field:	"priceEarningsToGrowthRatio" 	,	header:	"priceEarningsToGrowthRatio" 	}	,
-        {	field:	"priceSalesRatio" 	,	header:	"priceSalesRatio" 	}	,
-        {	field:	"dividendYield" 	,	header: "DividendYield" 	}	,
-        {	field:	"enterpriseValueMultiple" 	,	header:	"enterpriseValueMultiple" 	}	,
-        {	field:	"priceFairValue" 	,	header:	"priceFairValue" 	}		
+        { field: "date", header: "Date" },
+        { field: "priceBookValueRatio", header: "priceBookValueRatio" },
+        { field: "priceToBookRatio", header: "priceToBookRatio" },
+        { field: "priceToSalesRatio", header: "priceToSalesRatio" },
+        { field: "priceEarningsRatio", header: "priceEarningsRatio" },
+        { field: "receivablesTurnover", header: "receivablesTurnover" },
+        { field: "priceToFreeCashFlowsRatio", header: "priceToFreeCashFlowsRatio" },
+        { field: "priceToOperatingCashFlowsRatio", header: "priceToOperatingCashFlowsRatio" },
+        { field: "priceCashFlowRatio", header: "priceCashFlowRatio" },
+        { field: "priceEarningsToGrowthRatio", header: "priceEarningsToGrowthRatio" },
+        { field: "priceSalesRatio", header: "priceSalesRatio" },
+        { field: "dividendYield", header: "DividendYield" },
+        { field: "enterpriseValueMultiple", header: "enterpriseValueMultiple" },
+        { field: "priceFairValue", header: "priceFairValue" }
       ];
+
+      this.colProfitabilityIndicatorRatios = [
+        { field: "date", header: "Date" },
+        { field: "ebitperRevenue", header: "ebitperRevenue" },
+        { field: "niperEBT", header: "niperEBT" },
+        { field: "ebtperEBIT", header: "ebtperEBIT" },
+        { field: "grossProfitMargin", header: "grossProfitMargin" },
+        { field: "operatingProfitMargin", header: "operatingProfitMargin" },
+        { field: "pretaxProfitMargin", header: "pretaxProfitMargin" },
+        { field: "netProfitMargin", header: "netProfitMargin" },
+        { field: "effectiveTaxRate", header: "effectiveTaxRate" },
+        { field: "returnOnAssets", header: "returnOnAssets" },
+        { field: "returnOnEquity", header: "returnOnEquity" },
+        { field: "returnOnCapitalEmployed", header: "returnOnCapitalEmployed" },
+        { field: "nIperEBT", header: "nIperEBT" },
+        { field: "eBTperEBIT", header: "eBTperEBIT" },
+        { field: "eBITperRevenue", header: "eBITperRevenue" }
+      ];
+
+      this.colOperatingPerformanceRatios = [
+        { field: "date", header: "Date" },
+        { field: "receivablesTurnover", header: "receivablesTurnover" },
+        { field: "payablesTurnover", header: "payablesTurnover" },
+        { field: "inventoryTurnover", header: "inventoryTurnover" },
+        { field: "fixedAssetTurnover", header: "fixedAssetTurnover" },
+        { field: "assetTurnover", header: "assetTurnover" }
+      ];
+
+      this.colliquidityMeasurementRatios = [
+        { field: "date", header: "Date" },
+        { field: "currentRatio", header: "currentRatio" },
+        { field: "quickRatio", header: "quickRatio" },
+        { field: "cashRatio", header: "cashRatio" },
+        { field: "daysOfSalesOutstanding", header: "daysOfSalesOutstanding" },
+        { field: "daysOfInventoryOutstanding", header: "daysOfInventoryOutstanding" },
+        { field: "operatingCycle", header: "operatingCycle" },
+        { field: "daysOfPayablesOutstanding", header: "daysOfPayablesOutstanding" },
+        { field: "cashConversionCycle", header: "cashConversionCycle" }
+      ];
+
+      this.coldebtRatiosLst = [
+        { field: "date", header: "Date" },
+        { field: "debtRatio", header: "debtRatio"},
+        { field: "debtEquityRatio", header: "debtEquityRatio"},
+        { field: "longtermDebtToCapitalization", header: "longtermDebtToCapitalization"},
+        { field: "totalDebtToCapitalization", header: "totalDebtToCapitalization"},
+        { field: "interestCoverage", header: "interestCoverage"},
+        { field: "cashFlowToDebtRatio", header: "cashFlowToDebtRatio"},
+        { field: "companyEquityMultiplier", header: "companyEquityMultiplier"}
+      ];
+
+      this.colcashFlowIndicatorRatiosLst = [
+        { field: "date", header: "Date" },
+        { field: "operatingCashFlowPerShare", header: "operatingCashFlowPerShare"},
+        { field: "freeCashFlowPerShare", header: "freeCashFlowPerShare"},
+        { field: "cashPerShare", header: "cashPerShare"},
+        { field: "payoutRatio", header: "payoutRatio"},
+        { field: "receivablesTurnover", header: "receivablesTurnover"},
+        { field: "operatingCashFlowSalesRatio", header: "operatingCashFlowSalesRatio"},
+        { field: "freeCashFlowOperatingCashFlowRatio", header: "freeCashFlowOperatingCashFlowRatio"},
+        { field: "cashFlowCoverageRatios", header: "cashFlowCoverageRatios"},
+        { field: "shortTermCoverageRatios", header: "shortTermCoverageRatios"},
+        { field: "capitalExpenditureCoverageRatios", header: "capitalExpenditureCoverageRatios"},
+        { field: "dividendpaidAndCapexCoverageRatios", header: "dividendpaidAndCapexCoverageRatios"},
+        { field: "dividendPayoutRatio", header: "dividendPayoutRatio"}
+      ];
+
 
       this.profileService.getFinancials(this.symbol).
         subscribe(data => {
@@ -264,14 +343,32 @@ export class ProfileComponent implements OnInit {
         subscribe(
           data => {
 
-            this.ratiosLst = new Array(data.ratios.length - 1);
+            this.invRatiosLst = new Array(data.ratios.length - 1);
+            this.profRatiosLst = new Array(data.ratios.length - 1);
+            this.operatingPerformanceRatiosLst = new Array(data.ratios.length - 1);
+            this.liquidityMeasurementRatiosLst = new Array(data.ratios.length - 1);
+            this.debtRatiosLst = new Array(data.ratios.length - 1);
+            this.cashFlowIndicatorRatiosLst = new Array(data.ratios.length - 1);
 
-            for(var i=0;i< data.ratios.length; i++){
-              this.ratiosLst[i]=(data.ratios[i].investmentValuationRatios);
-              this.ratiosLst[i].date=data.ratios[i].date;
+            for (var i = 0; i < data.ratios.length; i++) {
+              this.invRatiosLst[i] = (data.ratios[i].investmentValuationRatios);
+              this.profRatiosLst[i] = (data.ratios[i].profitabilityIndicatorRatios);
+              this.operatingPerformanceRatiosLst[i] = (data.ratios[i].operatingPerformanceRatios);
+              this.liquidityMeasurementRatiosLst[i] = (data.ratios[i].liquidityMeasurementRatios);
+              this.debtRatiosLst[i] = (data.ratios[i].debtRatios);
+              this.cashFlowIndicatorRatiosLst[i] = (data.ratios[i].cashFlowIndicatorRatios);
+
+              this.invRatiosLst[i].date = data.ratios[i].date;
+              this.profRatiosLst[i].date = data.ratios[i].date;
+              this.operatingPerformanceRatiosLst[i].date = data.ratios[i].date;
+              this.liquidityMeasurementRatiosLst[i].date = data.ratios[i].date;
+              this.debtRatiosLst[i].date = data.ratios[i].date;
+              this.cashFlowIndicatorRatiosLst[i].date = data.ratios[i].date;
+
             }
+
           },
-            error => this.err = error);    
+          error => this.err = error);
 
     } else {
       console.log("empty symbol");
@@ -282,45 +379,92 @@ export class ProfileComponent implements OnInit {
     $(function () {
 
 
-      $("#fitbl").find("[role=grid]").attr("id","fiTable");
-       $("#ckmtbl").find("[role=grid]").attr("id","ckmTable");
-       $("#krtbl").find("[role=grid]").attr("id","krTable");
+      $("#fitbl").find("[role=grid]").attr("id", "fiTable");
+      $("#fgtbl").find("[role=grid]").attr("id", "fgTable");
+      $("#ckmtbl").find("[role=grid]").attr("id", "ckmTable");
+      $("#krtbl").find("[role=grid]").attr("id", "krTable");
+      $("#proftbl").find("[role=grid]").attr("id", "profTable");
 
-       $('#fiTable').DataTable({
-         paging: false,
-         autoWidth: true
-        });
+      $("#oprtbl").find("[role=grid]").attr("id", "oprTable");
+      $("#lmrtbl").find("[role=grid]").attr("id", "lmrTable");
+      $("#debttbl").find("[role=grid]").attr("id", "debtTable");
+      $("#cfitbl").find("[role=grid]").attr("id", "cfiTable");
 
-        $('#fiTable').wrap("<div style='overflow-x:auto;'>");
-        $('#fiTable').css("width","6000px");
-       
-        $("#fgtbl").find("[role=grid]").attr("id","fgTable");
-       
-       $('#fgTable').DataTable({
+      $('#fiTable').DataTable({
         paging: false,
         autoWidth: true
-       });
-      
-       $('#fgTable').wrap("<div style='overflow-x:auto;'>");
-       $('#fgTable').css("width","6000px");
-      
-       $('#ckmTable').DataTable({
+      });
+
+      $('#fiTable').wrap("<div style='overflow-x:auto;'>");
+      $('#fiTable').css("width", "6000px");
+
+
+      $('#fgTable').DataTable({
         paging: false,
         autoWidth: true
-       });
+      });
 
-       $('#ckmTable').wrap("<div style='overflow-x:auto;'>");
-        $('#ckmTable').css("width","12000px");
-       
-       $('#krTable').DataTable({
+      $('#fgTable').wrap("<div style='overflow-x:auto;'>");
+      $('#fgTable').css("width", "6000px");
+
+      $('#ckmTable').DataTable({
         paging: false,
         autoWidth: true
-       });
+      });
 
-       $('#krTable').wrap("<div style='overflow-x:auto;'>");
-        $('#krTable').css("width","6000px");
-       
-      
+      $('#ckmTable').wrap("<div style='overflow-x:auto;'>");
+      $('#ckmTable').css("width", "12000px");
+
+      $('#krTable').DataTable({
+        paging: false,
+        autoWidth: true
+      });
+
+      $('#krTable').wrap("<div style='overflow-x:auto;'>");
+      $('#krTable').css("width", "6000px");
+
+      $('#profTable').DataTable({
+        paging: false,
+        autoWidth: true
+      });
+
+      $('#profTable').wrap("<div style='overflow-x:auto;'>");
+      $('#profTable').css("width", "6000px");
+
+      $('#oprTable').DataTable({
+        paging: false,
+        autoWidth: true
+      });
+
+      $('#oprTable').wrap("<div style='overflow-x:auto;'>");
+      $('#oprTable').css("width", "100%");
+
+      $('#lmrTable').DataTable({
+        paging: false,
+        autoWidth: true
+      });
+
+      $('#lmrTable').wrap("<div style='overflow-x:auto;'>");
+      $('#lmrTable').css("width", "100%");
+
+
+      $('#debtTable').DataTable({
+        paging: false,
+        autoWidth: true
+      });
+
+      $('#debtTable').wrap("<div style='overflow-x:auto;'>");
+      $('#debtTable').css("width", "100%");
+
+
+      $('#cfiTable').DataTable({
+        paging: false,
+        autoWidth: true
+      });
+
+      $('#cfiTable').wrap("<div style='overflow-x:auto;'>");
+      $('#cfiTable').css("width", "4000px");
+
     });
   }
 

@@ -23,6 +23,7 @@ export interface Ratio {
 }
 
 export interface CashFlowIndicatorRatios {
+    date:                            Date;
     operatingCashFlowPerShare:          string;
     freeCashFlowPerShare:               string;
     cashPerShare:                       string;
@@ -38,6 +39,7 @@ export interface CashFlowIndicatorRatios {
 }
 
 export interface DebtRatios {
+    date:                            Date;
     debtRatio:                    string;
     debtEquityRatio:              string;
     longtermDebtToCapitalization: string;
@@ -65,6 +67,7 @@ export interface InvestmentValuationRatios {
 }
 
 export interface LiquidityMeasurementRatios {
+    date:                            Date;
     currentRatio:               string;
     quickRatio:                 string;
     cashRatio:                  string;
@@ -76,6 +79,7 @@ export interface LiquidityMeasurementRatios {
 }
 
 export interface OperatingPerformanceRatios {
+    date:                            Date;
     receivablesTurnover: string;
     payablesTurnover:    string;
     inventoryTurnover:   string;
@@ -84,6 +88,7 @@ export interface OperatingPerformanceRatios {
 }
 
 export interface ProfitabilityIndicatorRatios {
+    date:                            Date;
     ebitperRevenue:          string;
     niperEBT:                string;
     ebtperEBIT:              string;
