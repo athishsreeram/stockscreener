@@ -325,9 +325,6 @@ export class ProfileComponent implements OnInit {
       this.profileService.getFinancials(this.symbol).
         subscribe(data => {
           this.financialLst = data.financials;
-
-          this.transposeTable();
-
         },
           error => this.err = error);
 
@@ -367,6 +364,8 @@ export class ProfileComponent implements OnInit {
 
             }
 
+            this.transposeTable();
+
           },
           error => this.err = error);
 
@@ -389,6 +388,8 @@ export class ProfileComponent implements OnInit {
       $("#lmrtbl").find("[role=grid]").attr("id", "lmrTable");
       $("#debttbl").find("[role=grid]").attr("id", "debtTable");
       $("#cfitbl").find("[role=grid]").attr("id", "cfiTable");
+
+      if(!$('#fiTable_filter').length){
 
       $('#fiTable').DataTable({
         paging: false,
@@ -464,6 +465,7 @@ export class ProfileComponent implements OnInit {
 
       $('#cfiTable').wrap("<div style='overflow-x:auto;'>");
       $('#cfiTable').css("width", "4000px");
+    }
 
     });
   }
