@@ -20,13 +20,15 @@ import { Cmpmetric } from './Cmpmetric';
 export class ProfileService {
 
   
+  key = "?apikey=98b3354924577aa37a8a6ef9dd823577"
+
   constructor(private http: HttpClient,public datepipe: DatePipe) {}
 
    private _profileurl: string = "https://financialmodelingprep.com/api/v3/company/profile/";
    //private _profileurl: string = "assets/profile.json";
 
   getProfiles(symbol): Observable<Profile> {
-    return this.http.get<Profile>(this._profileurl+symbol)
+    return this.http.get<Profile>(this._profileurl+symbol+this.key)
       .pipe(retry(1),
         catchError(this.handleError)
       );
@@ -35,7 +37,7 @@ export class ProfileService {
   //private _quoteurl: string = "assets/quote.json";
 
   getQuote(symbol): Observable<Quote[]> {
-    return this.http.get<Quote[]>(this._quoteurl+symbol)
+    return this.http.get<Quote[]>(this._quoteurl+symbol+this.key)
       .pipe(retry(1),
         catchError(this.handleError)
       );
@@ -51,7 +53,7 @@ export class ProfileService {
       datee = new Date();
       let latest_date =this.datepipe.transform(datee, 'yyyy-MM-dd');
       
-     return this.http.get<History>(this._historyurl1+symbol+this._historyurl2+latest_date)
+     return this.http.get<History>(this._historyurl1+symbol+this._historyurl2+latest_date+this.key)
       .pipe(retry(3),
         catchError(this.handleError)
       );
@@ -61,7 +63,7 @@ export class ProfileService {
   private _stkLst: string = "https://financialmodelingprep.com/api/v3/company/stock/list";
 
   getStkLst(): Observable<StkLst> {
-    return this.http.get<StkLst>(this._stkLst)
+    return this.http.get<StkLst>(this._stkLst+this.key)
       .pipe(retry(1),
         catchError(this.handleError)
       );
@@ -71,7 +73,7 @@ export class ProfileService {
   private _incomeLst: string = "https://financialmodelingprep.com/api/v3/financials/income-statement/";
 
   getFinancials(symbol): Observable<Income> {
-    return this.http.get<Income>(this._incomeLst+symbol)
+    return this.http.get<Income>(this._incomeLst+symbol+this.key)
       .pipe(retry(1),
         catchError(this.handleError)
       );
@@ -81,7 +83,7 @@ export class ProfileService {
   private _fsgLst: string = "https://financialmodelingprep.com/api/v3/financial-statement-growth/";
 
   getFsg(symbol): Observable<Fsg> {
-    return this.http.get<Fsg>(this._fsgLst+symbol)
+    return this.http.get<Fsg>(this._fsgLst+symbol+this.key)
       .pipe(retry(1),
         catchError(this.handleError)
       );
@@ -90,7 +92,7 @@ export class ProfileService {
   private _cmpMetricLst: string = "https://financialmodelingprep.com/api/v3/company-key-metrics/";
 
   getCmpmetric(symbol): Observable<Cmpmetric> {
-    return this.http.get<Cmpmetric>(this._cmpMetricLst+symbol)
+    return this.http.get<Cmpmetric>(this._cmpMetricLst+symbol+this.key)
       .pipe(retry(1),
         catchError(this.handleError)
       );
@@ -100,7 +102,7 @@ export class ProfileService {
   //private _frurl: string = "assets/quote.json";
 
   getFinratio(symbol): Observable<Finratio> {
-    return this.http.get<Finratio>(this._frurl+symbol)
+    return this.http.get<Finratio>(this._frurl+symbol+this.key)
       .pipe(retry(1),
         catchError(this.handleError)
       );
